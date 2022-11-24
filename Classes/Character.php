@@ -3,30 +3,45 @@
 class Character
 {
     public function __construct(
-        private int $health,
-        private int $defense,
-        private int $attackDamages,
+        private float $health = 29,
+        private float $defense = 60,
+        protected float $physicalDamages = 9,
+        protected float $magicalDamages = 9,
     ) {
     }
 
-    public function getHealth(): int
+    public function getHealth(): float
     {
         return $this->health;
     }
     
-    public function getAttackDamages(): int
+    public function getPhysicalDamages(): float
     {
-        return $this->attackDamages;
+        return $this->physicalDamages;
+    }
+    
+    public function getMagicalDamages(): float
+    {
+        return $this->magicalDamages;
     }
 
-    public function getDefense(): int
+    public function getDefense(): float
     {
-        return $this->defense;
+        if ($this->defense > 100) return 1;
+
+        return $this->defense / 100;
     }
 
-    public function takeDamages(int $damages): void
+    public function attack(Character $character)
     {
-        $damagesTaken = $damages - $this->defense;
+        echo "{$this} attaque ".lcfirst($character).PHP_EOL;
+        $character->takesDamages($this->getPhysicalDamages(), $this->getMagicalDamages());
+    }
+
+    public function takesDamages(float $physicalDamages, float $magicalDamages): void
+    {
+        $damages = $physicalDamages + $magicalDamages;
+        $damagesTaken = $damages - $damages * $this->getDefense();
 
         if ($damagesTaken > $this->health) {
             $this->health = 0;
@@ -38,5 +53,9 @@ class Character
     public function isAlive(): bool
     {
         return $this->health > 0;
+    }
+
+    public function __toString() {
+        return "";
     }
 }

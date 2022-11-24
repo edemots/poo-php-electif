@@ -1,24 +1,49 @@
 <?php
 
-require_once('./Classes/Character.php');
+require_once('functions.php');
 
-$archer = new Character(25, 4, 11);
-$soldier = new Character(40, 8, 8);
+require_once('./Classes/Thief.php');
+require_once('./Classes/Wizard.php');
+require_once('./Classes/Soldier.php');
 
-while ($archer->isAlive() && $soldier->isAlive()) {
-    $soldier->takeDamages($archer->getAttackDamages());
-    echo "L'archer inflige ".$archer->getAttackDamages() - $soldier->getDefense()." points de dégats au soldat".PHP_EOL;
+$thief = new Thief();
+$wizard = new Wizard();
+$soldier = new Soldier();
+
+$characters = [$thief, $wizard, $soldier];
+$attackees = $characters;
+
+$finished = false;
+$winner = null;
+$round = 1;
+while (!$finished) {
+    echo "=== ROUND {$round} ===".PHP_EOL;
+
+    shuffle($characters);
+    $charactersToPlay = $characters;
     
-    $archer->takeDamages($soldier->getAttackDamages());
-    echo "Le soldat inflige ".$soldier->getAttackDamages() - $archer->getDefense()." points de dégats à l'archer".PHP_EOL;
-    
-    echo "- archer: {$archer->getHealth()}hp".PHP_EOL;
-    echo "- soldier: {$soldier->getHealth()}hp".PHP_EOL;
+    while(count($charactersToPlay) > 0) {
+        $attacker = array_shift($charactersToPlay);
+        $attackees = array_filter(
+            $attackees, 
+            fn (Character $character) => get_class($character) !== $attacker::class
+        );
+        $attackee = array_rand($attackees);
+        $attacker->attack($attackees[$attackee]);
+        $attackees = $characters;
+    }
+
+    $finished = count($winner = array_filter(
+        [$thief, $wizard, $soldier], 
+        function (Character $character) {
+            return $character->isAlive();
+        }
+    )) === 1;
+
+    $round++;
     echo PHP_EOL;
 }
 
-if ($archer->isAlive()) {
-    echo "L'archer a gagné !".PHP_EOL;
-} else {
-    echo "Le soldat a gagné !".PHP_EOL;
-}
+$winner = array_shift($winner);
+
+echo "Le gagnant est ".lcfirst($winner). " en {$round} round(s)".PHP_EOL;
