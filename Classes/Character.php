@@ -1,6 +1,6 @@
 <?php
 
-class Character
+abstract class Character
 {
     public function __construct(
         private float $health = 29,
@@ -32,7 +32,7 @@ class Character
         return $this->defense / 100;
     }
 
-    public function attack(Character $character)
+    public function attack(Character $character): void
     {
         echo "{$this} attaque ".lcfirst($character).PHP_EOL;
         $character->takesDamages($this->getPhysicalDamages(), $this->getMagicalDamages());
@@ -55,7 +55,5 @@ class Character
         return $this->health > 0;
     }
 
-    public function __toString() {
-        return "";
-    }
+    abstract public function __toString();
 }
