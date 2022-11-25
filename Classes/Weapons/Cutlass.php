@@ -1,6 +1,8 @@
 <?php
 
-require_once('./Classes/Abstracts/PhysicalWeapon.php');
+namespace App\Classes\Weapons;
+
+use App\Classes\Abstracts\PhysicalWeapon;
 
 class Cutlass extends PhysicalWeapon
 {

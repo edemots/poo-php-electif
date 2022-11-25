@@ -1,6 +1,6 @@
 <?php
 
-require_once('Weapon.php');
+namespace App\Classes\Abstracts;
 
 abstract class PhysicalWeapon extends Weapon
 {

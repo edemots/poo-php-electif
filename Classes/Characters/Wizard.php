@@ -1,6 +1,8 @@
 <?php
 
-require_once('./Classes/Abstracts/MagicalCharacter.php');
+namespace App\Classes\Characters;
+
+use App\Classes\Abstracts\MagicalCharacter;
 
 class Wizard extends MagicalCharacter
 {

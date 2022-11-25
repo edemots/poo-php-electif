@@ -1,6 +1,6 @@
 <?php
 
-require_once('./Traits/HasWeapon.php');
+namespace App\Classes\Abstracts;
 
 abstract class Character
 {

@@ -1,7 +1,8 @@
 <?php
 
-require_once("./Classes/Abstracts/Character.php");
-require_once("./Traits/HasMagicalWeapon.php");
+namespace App\Classes\Abstracts;
+
+use App\Traits\HasMagicalWeapon;
 
 abstract class MagicalCharacter extends Character
 {

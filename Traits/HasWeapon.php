@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Traits;
+
 trait HasWeapon
 {
     public function hasWeapon(): bool

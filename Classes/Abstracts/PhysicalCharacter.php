@@ -1,7 +1,8 @@
 <?php
 
-require_once("./Classes/Abstracts/Character.php");
-require_once("./Traits/HasPhysicalWeapon.php");
+namespace App\Classes\Abstracts;
+
+use App\Traits\HasPhysicalWeapon;
 
 abstract class PhysicalCharacter extends Character
 {

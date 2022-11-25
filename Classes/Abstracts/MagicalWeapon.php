@@ -1,7 +1,7 @@
 <?php
 
-require_once('Weapon.php');
- 
+namespace App\Classes\Abstracts;
+
 abstract class MagicalWeapon extends Weapon
 {
     public function __construct(string $name, string $description, float $magicalDamagesRatio)

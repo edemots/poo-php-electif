@@ -1,6 +1,8 @@
 <?php
 
-require_once('./Classes/Abstracts/PhysicalCharacter.php');
+namespace App\Classes\Characters;
+
+use App\Classes\Abstracts\PhysicalCharacter;
 
 class Soldier extends PhysicalCharacter
 {

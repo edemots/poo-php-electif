@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Classes\Abstracts;
+
 abstract class Weapon
 {
     public function __construct(

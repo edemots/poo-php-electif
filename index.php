@@ -1,12 +1,14 @@
 <?php
 
-require_once('functions.php');
+use App\Classes\Abstracts\Character;
+use App\Classes\Characters\Soldier;
+use App\Classes\Characters\Thief;
+use App\Classes\Characters\Wizard;
+use App\Classes\Weapons\Cutlass;
+use App\Classes\Weapons\RodOfAges;
 
-require_once('./Classes/Characters/Thief.php');
-require_once('./Classes/Characters/Wizard.php');
-require_once('./Classes/Characters/Soldier.php');
-require_once('./Classes/Weapons/Cutlass.php');
-require_once('./Classes/Weapons/RodOfAges.php');
+require_once('./autoload.php');
+require_once('./functions.php');
 
 $thief = new Thief();
 $thief->takesWeapon(new Cutlass());
@@ -14,45 +16,59 @@ $wizard = new Wizard();
 $wizard->takesWeapon(new RodOfAges());
 $soldier = new Soldier();
 
-$characters = [$thief, $wizard, $soldier];
-$attackees = $characters;
+$winners = [
+    Thief::class => 0,
+    Wizard::class => 0,
+    Soldier::class => 0,
+];
 
-$finished = false;
-$winner = null;
-$round = 0;
-while (!$finished) {
-    $round++;
+$i = 0;
+while ($i < 1000) {
+    $characters = [$thief, $wizard, $soldier];
+    $attackees = $characters;
     
-    echo "=== ROUND {$round} ===".PHP_EOL;
-
-    shuffle($characters);
-    $charactersToPlay = $characters;
-
-    while(count($charactersToPlay) > 0) {
-        $attacker = array_shift($charactersToPlay);
-        $attackees = array_filter(
-            $attackees, 
-            fn (Character $character) => get_class($character) !== $attacker::class
-        );
-        $attackee = array_rand($attackees);
-        $attacker->attack($attackees[$attackee]);
-        $attackees = $characters;
-
-        $winner = array_filter(
-            [$thief, $wizard, $soldier], 
-            function (Character $character) {
-                return $character->isAlive();
+    $finished = false;
+    $winner = null;
+    $round = 0;
+    while (!$finished) {
+        $round++;
+    
+        echo "=== ROUND {$round} ===".PHP_EOL;
+    
+        shuffle($characters);
+        $charactersToPlay = $characters;
+    
+        while(count($charactersToPlay) > 0) {
+            $attacker = array_shift($charactersToPlay);
+            $attackees = array_filter(
+                $attackees, 
+                fn (Character $character) => get_class($character) !== $attacker::class
+            );
+            $attackee = array_rand($attackees);
+            $attacker->attack($attackees[$attackee]);
+            $attackees = $characters;
+    
+            $winner = array_filter(
+                [$thief, $wizard, $soldier], 
+                function (Character $character) {
+                    return $character->isAlive();
+                }
+            );
+    
+            if ($finished = count($winner) === 1) {
+                break(2);
             }
-        );
-
-        if ($finished = count($winner) === 1) {
-            break;
         }
+    
+        echo PHP_EOL;
     }
+    
+    $winner = array_shift($winner);
+    $winners[$winner::class]++;
 
-    echo PHP_EOL;
+    $i++;
 }
 
-$winner = array_shift($winner);
+var_dump($winners);
 
-echo "Le gagnant est ".lcfirst($winner). " en {$round} round(s)".PHP_EOL;
+// echo "Le gagnant est ".lcfirst($winner). " en {$round} round(s)".PHP_EOL;

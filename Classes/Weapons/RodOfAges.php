@@ -1,6 +1,8 @@
 <?php
 
-require_once('./Classes/Abstracts/MagicalWeapon.php');
+namespace App\Classes\Weapons;
+
+use App\Classes\Abstracts\MagicalWeapon;
 
 class RodOfAges extends MagicalWeapon
 {

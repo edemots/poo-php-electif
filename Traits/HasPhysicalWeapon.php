@@ -1,7 +1,8 @@
 <?php
 
-require_once('./Traits/HasWeapon.php');
-require_once('./Classes/Abstracts/PhysicalWeapon.php');
+namespace App\Traits;
+
+use App\Classes\Abstracts\PhysicalWeapon;
 
 trait HasPhysicalWeapon
 {
