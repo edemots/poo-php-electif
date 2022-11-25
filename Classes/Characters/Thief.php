@@ -8,7 +8,7 @@ class Thief extends PhysicalCharacter
 {
     public function __construct()
     {
-        parent::__construct(health: 32, defense: 40, physicalDamages: 15, magicalDamages: 4);
+        parent::__construct(health: 34, defense: 33, physicalDamages: 16, magicalDamages: 4);
     }
 
     public function getPhysicalDamages(): float
@@ -16,7 +16,7 @@ class Thief extends PhysicalCharacter
         $baseDamages = parent::getPhysicalDamages();
 
         if (chance(5)) {
-            echo "{$this} fait plus de dégats !".PHP_EOL;
+            // echo "{$this} fait plus de dégats !".PHP_EOL;
             return $baseDamages * 1.2;
         }
         return $baseDamages;
@@ -25,7 +25,7 @@ class Thief extends PhysicalCharacter
     public function getDefense(): float
     {
         if (chance(10)) {
-            echo "{$this} esquive l'attaque !".PHP_EOL;
+            // echo "{$this} esquive l'attaque !".PHP_EOL;
             return 1;
         }
         return parent::getDefense();

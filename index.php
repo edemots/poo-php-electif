@@ -16,7 +16,7 @@ $winners = [
     Soldier::class => 0,
 ];
 
-const GAME_NUMBER = 10000;
+const GAME_NUMBER = 100000;
 
 $i = 0;
 while ($i < GAME_NUMBER) {
@@ -35,7 +35,7 @@ while ($i < GAME_NUMBER) {
     while (!$finished) {
         $round++;
     
-        echo "=== ROUND {$round} ===".PHP_EOL;
+        // echo "=== ROUND {$round} ===".PHP_EOL;
     
         shuffle($characters);
         $charactersToPlay = $characters;
@@ -62,13 +62,15 @@ while ($i < GAME_NUMBER) {
             }
         }
     
-        echo PHP_EOL;
+        // echo PHP_EOL;
     }
     
     $winner = array_shift($winner);
     $winners[$winner::class]++;
 
     $i++;
+
+    progressBar($i, GAME_NUMBER);
 }
 
 var_dump(array_map(fn (int $wins) => ($wins / GAME_NUMBER * 100)."%", $winners));

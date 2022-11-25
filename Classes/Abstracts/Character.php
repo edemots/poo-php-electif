@@ -36,7 +36,7 @@ abstract class Character
 
     public function attack(Character $character): void
     {
-        echo "{$this} attaque ".lcfirst($character).($this->weapon ? " avec ".lcfirst($this->weapon->getName()) : " à mains nues").PHP_EOL;
+        // echo "{$this} attaque ".lcfirst($character).($this->weapon ? " avec ".lcfirst($this->weapon->getName()) : " à mains nues").PHP_EOL;
         $character->takesDamages($this->getPhysicalDamages(), $this->getMagicalDamages());
     }
 

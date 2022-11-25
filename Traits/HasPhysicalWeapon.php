@@ -12,7 +12,7 @@ trait HasPhysicalWeapon
 
     public function takesWeapon(?PhysicalWeapon $weapon)
     {
-        echo "{$this} prend ".lcfirst($weapon).PHP_EOL;
+        // echo "{$this} prend ".lcfirst($weapon).PHP_EOL;
         $this->weapon = $weapon;
     }
 }

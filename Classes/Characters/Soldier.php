@@ -8,7 +8,7 @@ class Soldier extends PhysicalCharacter
 {
     public function __construct()
     {
-        parent::__construct(health: 32, defense: 65, physicalDamages: 8, magicalDamages: 0);
+        parent::__construct(health: 32, defense: 60, physicalDamages: 8, magicalDamages: 0);
     }
 
     public function getPhysicalDamages(): float
@@ -16,7 +16,7 @@ class Soldier extends PhysicalCharacter
         $baseDamages = parent::getPhysicalDamages();
 
         if (chance(10)) {
-            echo "{$this} inflige un coup critique !".PHP_EOL;
+            // echo "{$this} inflige un coup critique !".PHP_EOL;
             return $baseDamages * 2;
         }
         return $baseDamages;
