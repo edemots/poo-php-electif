@@ -8,7 +8,7 @@ class Thief extends PhysicalCharacter
 {
     public function __construct()
     {
-        parent::__construct(health: 30, defense: 40, physicalDamages: 12, magicalDamages: 4);
+        parent::__construct(health: 32, defense: 40, physicalDamages: 15, magicalDamages: 4);
     }
 
     public function getPhysicalDamages(): float

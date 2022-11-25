@@ -10,20 +10,22 @@ use App\Classes\Weapons\RodOfAges;
 require_once('./autoload.php');
 require_once('./functions.php');
 
-$thief = new Thief();
-$thief->takesWeapon(new Cutlass());
-$wizard = new Wizard();
-$wizard->takesWeapon(new RodOfAges());
-$soldier = new Soldier();
-
 $winners = [
     Thief::class => 0,
     Wizard::class => 0,
     Soldier::class => 0,
 ];
 
+const GAME_NUMBER = 10000;
+
 $i = 0;
-while ($i < 1000) {
+while ($i < GAME_NUMBER) {
+    $thief = new Thief();
+    $thief->takesWeapon(new Cutlass());
+    $wizard = new Wizard();
+    $wizard->takesWeapon(new RodOfAges());
+    $soldier = new Soldier();
+
     $characters = [$thief, $wizard, $soldier];
     $attackees = $characters;
     
@@ -56,7 +58,7 @@ while ($i < 1000) {
             );
     
             if ($finished = count($winner) === 1) {
-                break(2);
+                break;
             }
         }
     
@@ -69,6 +71,6 @@ while ($i < 1000) {
     $i++;
 }
 
-var_dump($winners);
+var_dump(array_map(fn (int $wins) => ($wins / GAME_NUMBER * 100)."%", $winners));
 
 // echo "Le gagnant est ".lcfirst($winner). " en {$round} round(s)".PHP_EOL;
