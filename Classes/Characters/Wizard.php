@@ -1,8 +1,8 @@
 <?php
 
-require_once('Character.php');
+require_once('./Classes/Abstracts/MagicalCharacter.php');
 
-class Wizard extends Character
+class Wizard extends MagicalCharacter
 {
     public function __construct()
     {
@@ -11,11 +11,12 @@ class Wizard extends Character
 
     public function getMagicalDamages(): float
     {
+        $baseDamages = parent::getMagicalDamages();
         if (chance(10)) {
             echo "{$this} inflige des dégats magiques critiques !".PHP_EOL;
-            return $this->magicalDamages * 2;
+            return $baseDamages * 2;
         }
-        return $this->magicalDamages;
+        return $baseDamages;
     }
 
     public function takesDamages(float $physicalDamages, float $magicalDamages): void

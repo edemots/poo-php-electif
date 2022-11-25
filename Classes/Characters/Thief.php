@@ -1,21 +1,23 @@
 <?php
 
-require_once('Character.php');
+require_once('./Classes/Abstracts/PhysicalCharacter.php');
 
-class Thief extends Character
+class Thief extends PhysicalCharacter
 {
     public function __construct()
     {
-        parent::__construct(health: 25, defense: 40, physicalDamages: 11, magicalDamages: 4);
+        parent::__construct(health: 30, defense: 40, physicalDamages: 12, magicalDamages: 4);
     }
 
     public function getPhysicalDamages(): float
     {
+        $baseDamages = parent::getPhysicalDamages();
+
         if (chance(5)) {
             echo "{$this} fait plus de dégats !".PHP_EOL;
-            return $this->physicalDamages * 1.2;
+            return $baseDamages * 1.2;
         }
-        return $this->physicalDamages;
+        return $baseDamages;
     }
 
     public function getDefense(): float
